@@ -4,7 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dummy_data.dart';
 
 //Todo:autoDispose using for not caching data
+
+
 final futureprovider = FutureProvider.autoDispose((ref) => fetchWether());
+
+//! same provider using for streamprovider
+// final Streamprovider = StreamProvider.autoDispose((ref) => fetchWether());
 
 class WetherScreen extends ConsumerWidget {
   const WetherScreen({super.key});
