@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutterriverpod/screen/counterprovider.dart';
 
-//Using state provider
 
-final counter = StateProvider((ref) => 0);
+//todo: Using state provider
+
+// final counter = StateProvider((ref) => 0);
+final counterProvider =
+    StateNotifierProvider<CounterProvider, int>((ref) => CounterProvider());
 
 class CountScreen extends ConsumerStatefulWidget {
   const CountScreen({super.key});
@@ -15,31 +19,31 @@ class CountScreen extends ConsumerStatefulWidget {
 class _CountScreenState extends ConsumerState<CountScreen> {
   @override
   Widget build(BuildContext context) {
-    print('build');
-    ref.listen(counter, (preives, next) {
-      if (next == 5) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('The value is $next ')));
-      }
-    });
+    print('builds');
+    // ref.listen(counter, (preives, next) {
+    //   if (next == 5) {
+    //     ScaffoldMessenger.of(context)
+    //         .showSnackBar(SnackBar(content: Text('The value is $next ')));
+    //   }
+    // });
     return Scaffold(
       appBar: AppBar(
         title: const Text('Counter App'),
         actions: [
           IconButton(
               onPressed: () {
-                ref.invalidate(counter);
+                // ref.invalidate(counter);
                 // ref.refresh(counter);
               },
               icon: const Icon(Icons.refresh))
         ],
       ),
       body: Center(
-        child: Text(ref.watch(counter).toString()),
+        child: Text(ref.watch(counterProvider).toString()),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ref.watch(counter.notifier).state++;
+          ref.read(counterProvider.notifier).increment();
           // ref.watch(counter.notifier).update((state) => state++);
         },
         child: const Icon(Icons.add),
